@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-YtXeF+9jHrm9fDrDepObyENTccyQxU5iBHrVP0OPFMU=' 'sha256-yTvM+JT8e4y/yFSxJS5iJqnFroh6pRn8VHDchU0lrt8=' 'sha256-Uup7KNz9oGqODWsSagatSZ/4bVnRA1g3yyA1qODabGo=' 'sha256-uGIxsNGrhzJch90uRgQoaD7vTpPUtTtKGgJWVY7fTJU=' 'sha256-XbPLzkCMCrq5uDHn4K/R2SOK+Z+uKIXT7dJzoCHhrWo=' https://apis.google.com; style-src 'unsafe-inline'; img-src data: blob: https://lh3.googleusercontent.com; connect-src https://*.googleapis.com https://trading-journal-d9571.firebaseapp.com; frame-src https://trading-journal-d9571.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-YtXeF+9jHrm9fDrDepObyENTccyQxU5iBHrVP0OPFMU=' 'sha256-yTvM+JT8e4y/yFSxJS5iJqnFroh6pRn8VHDchU0lrt8=' 'sha256-Uup7KNz9oGqODWsSagatSZ/4bVnRA1g3yyA1qODabGo=' 'sha256-uGIxsNGrhzJch90uRgQoaD7vTpPUtTtKGgJWVY7fTJU=' 'sha256-z2Y16c/NcT6u2od3J+YsWqRwQ+pWqndMl6UbnmBHEoQ=' https://apis.google.com; style-src 'unsafe-inline'; img-src data: blob: https://lh3.googleusercontent.com; connect-src https://*.googleapis.com https://trading-journal-d9571.firebaseapp.com; frame-src https://trading-journal-d9571.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="theme-color" content="#05080f">
 <script>try{var t=localStorage.getItem('p1m-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;document.documentElement.dataset.fx=localStorage.getItem('p1m-fx')==='off'?'off':'on'}catch(e){document.documentElement.dataset.fx='on'}</script>
 <title>หลังบ้าน · Super Elite Club</title>
@@ -4557,7 +4557,7 @@ function allClientsView() {
     <div class="cst info"><small>ค่าเรียนที่ต้องคืน ถ้าจบวันนี้</small><b class="num">฿${kb(sts.reduce((t, x) => t + x.refund, 0))}</b><span>คืนเต็ม ${sts.filter(x => x.pr <= 0).length} ราย · ถึง 1 ล้าน ${sts.filter(x => x.extra > 0).length} ราย</span></div></div>`;
   const tools = `<div class="vh clt"><div class="tsearch">${ic('search', 16)}<input id="q" value="${esc(q)}" maxlength="60" placeholder="ค้นหาชื่อหรืออีเมล" aria-label="ค้นหาลูกค้า"></div>
     <select id="fcoach" style="width:auto;border-radius:999px" aria-label="กรองตามโค้ช"><option value="">โค้ชทุกคน</option>${S.coaches.map(co => `<option value="${co.id}" ${fCoach === co.id ? 'selected' : ''}>${co.name}</option>`).join('')}</select>
-    <span class="muted sm opt">แสดง <b class="num ink2">${list.length}</b> จาก ${S.clients.length} ราย</span><span class="sp"></span>${wide ? '<span class="xs muted kbh opt">คีย์ลัด <kbd>↑</kbd><kbd>↓</kbd> เลือก · <kbd>Enter</kbd> เปิด</span>' : ''}
+    <span class="muted sm opt">แสดง <b class="num ink2">${list.length}</b> จาก ${S.clients.length} ราย</span><span class="sp"></span>${isHead() ? `<button class="btn sm" data-act="addcl">${ic('plus', 15)}<span class="l">เพิ่มลูกค้า</span></button>` : ''}${wide ? '<span class="xs muted kbh opt">คีย์ลัด <kbd>↑</kbd><kbd>↓</kbd> เลือก · <kbd>Enter</kbd> เปิด</span>' : ''}
     <select id="sort" style="width:auto;border-radius:999px" aria-label="เรียงลำดับ">${[['score', 'วินัยต่ำสุดก่อน'], ['ret', 'กำไรสูงสุด'], ['refund', 'คืนค่าเรียนมากสุด'], ['name', 'รหัสลูกค้า']].map(([k, l]) => `<option value="${k}" ${sortBy === k ? 'selected' : ''}>${l}</option>`).join('')}</select></div>`;
   if (!wide) return tools + strip + pnl({ t: 'ลูกค้า', sub: `${list.length} จาก ${S.clients.length} คน`, key: 'all', cls: 'tight', rows: list.map(clientRow).join(''), empty: 'ไม่พบลูกค้าตามเงื่อนไข' });
   // one line per client: status (the rail), who, growth, profit, the 1M condition, discipline, open issues
@@ -4739,7 +4739,7 @@ function noteModal(id) {
 }
 function coachOptions(sel) { return S.coaches.map(co => { const k = S.clients.filter(c => c.coach === co.id).length; return `<option value="${co.id}" ${sel === co.id ? 'selected' : ''}>${co.name} · ดูแล ${k}/5${k >= 5 ? ' (เต็ม)' : ''}</option>`; }).join(''); }
 function addClientModal(app) {
-  if (!isCS()) return;
+  if (!isCS() && !isHead()) return;
   const a = app && appOf(app);
   const box = openModal(mhead(a ? `รับเข้าโปรแกรม · ${esc(a.name)} ${esc(a.last)}` : 'เพิ่มลูกค้าใหม่', `ค่าเรียน ฿${baht(TUITION)} · พอร์ตขั้นต่ำ ฿${baht(MIN_PORT)} · ลูกค้าเข้าสู่ระบบด้วย Gmail นี้ได้ทันที และจะเห็นกติกาเมื่อเข้าใช้งานครั้งแรก`) + `<div class="mbd"><div class="fgrid">
       <div class="field"><label for="nm">ชื่อ</label><input id="nm" maxlength="60" value="${esc(a?.name || '')}"></div><div class="field"><label for="ln">นามสกุล</label><input id="ln" maxlength="60" value="${esc(a ? a.last.replace('.', '') : '')}"></div>
@@ -4759,8 +4759,8 @@ function addClientModal(app) {
     if (err) { $('#err', box).textContent = err; return; }
     const coId = $('#co', box).value, { id } = newClient({ name: v('nm'), last: v('ln'), email: em, phone: ph, coach: coId, cap, broker: v('br'), acct: ac, term, type, mks });
     if (a) Object.assign(a, { stage: 'in', cl: id });
-    S.notes.push({ id: nid('n'), cl: id, by: 'cs', role: 'cs', at: now(), text: `${a ? 'รับเข้าโปรแกรมจากผู้สมัคร' : 'เพิ่มเข้าระบบ'} จับคู่กับ${coach(coId).name} · ${term} เดือน ${TYPE[type]}` });
-    pushFeed({ by: 'cs', who: 'cs', kind: 'client', cl: id, coach: coId, text: `CS ${a ? 'รับผู้สมัคร' : 'เพิ่มลูกค้าใหม่'} ${v('nm')} (${em}) เข้าโปรแกรม ให้${coach(coId).name}` });
+    S.notes.push({ id: nid('n'), cl: id, by: ME().id, role: roleOf(), at: now(), text: `${a ? 'รับเข้าโปรแกรมจากผู้สมัคร' : 'เพิ่มเข้าระบบ'} จับคู่กับ${coach(coId).name} · ${term} เดือน ${TYPE[type]}` });
+    pushFeed({ by: roleOf(), who: ME().id, kind: 'client', cl: id, coach: coId, text: `${isHead() ? 'หัวหน้าโค้ช' : 'CS'} ${a ? 'รับผู้สมัคร' : 'เพิ่มลูกค้าใหม่'} ${v('nm')} (${em}) เข้าโปรแกรม ให้${coach(coId).name}` });
     if (!save()) return;
     closeModal(); fStat = 'all'; q = ''; fCoach = ''; sortBy = 'name'; PG.all = 99; go('clients');
     toast(`${ic('check', 18)}<div><b>${a ? 'รับเข้าโปรแกรม' : 'เพิ่ม'} ${esc(v('nm'))} แล้ว</b><div class="muted sm">${esc(em)} เข้าสู่ระบบได้ทันที · ${coach(coId).name}</div></div>`, 'ok');
@@ -4795,7 +4795,7 @@ function impRows(txt) {
   });
 }
 function importModal() {
-  if (!isCS()) return;
+  if (!isCS() && !isHead()) return;
   const box = openModal(mhead('นำเข้าลูกค้าหลายราย', `คัดลอกแถวจาก Excel หรือ Google Sheets มาวาง หนึ่งแถวต่อหนึ่งคน · ครั้งละไม่เกิน ${IMP_MAX} ราย`) + `<div class="mbd">
     <div class="impcols">${IMP_COLS.map((c, i) => `<span class="${i < 6 ? 'req' : ''}">${i + 1}. ${c}</span>`).join('')}</div>
     <div class="hint" style="margin-bottom:8px">ต้องมีคอลัมน์ 1–6 · ที่เหลือเว้นว่างได้ (12 เดือน · Part-time · หุ้นไทย · ${BROKERS[0]}) · ลูกค้าเห็นกติกาและยืนยันแผนเมื่อเข้าใช้งานครั้งแรก</div>
@@ -4818,8 +4818,8 @@ function importModal() {
   let tm; ta.addEventListener('input', () => { clearTimeout(tm); tm = setTimeout(show, 200); }); ta.focus();
   btn.addEventListener('click', () => {
     const ok = show(); if (!ok.length) return;
-    ok.forEach(r => { const c = newClient(r.o); S.notes.push({ id: nid('n'), cl: c.id, by: 'cs', role: 'cs', at: now(), text: `นำเข้าระบบ จับคู่กับ${coach(c.coach).name} · ${c.term} เดือน ${TYPE[c.type]}` }); });
-    pushFeed({ by: 'cs', who: 'cs', kind: 'client', text: `CS นำเข้าลูกค้าใหม่ ${ok.length} ราย` });
+    ok.forEach(r => { const c = newClient(r.o); S.notes.push({ id: nid('n'), cl: c.id, by: ME().id, role: roleOf(), at: now(), text: `นำเข้าระบบ จับคู่กับ${coach(c.coach).name} · ${c.term} เดือน ${TYPE[c.type]}` }); });
+    pushFeed({ by: roleOf(), who: ME().id, kind: 'client', text: `${isHead() ? 'หัวหน้าโค้ช' : 'CS'} นำเข้าลูกค้าใหม่ ${ok.length} ราย` });
     if (!save()) return;
     closeModal(); fStat = 'all'; q = ''; fCoach = ''; sortBy = 'name'; PG.all = 0; go('clients');
     toast(`${ic('check', 18)}<div><b>นำเข้า ${ok.length} รายแล้ว</b><div class="muted sm">ลูกค้าเข้าสู่ระบบด้วย Gmail ของตัวเองได้ทันที</div></div>`, 'ok');
