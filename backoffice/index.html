@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-YtXeF+9jHrm9fDrDepObyENTccyQxU5iBHrVP0OPFMU=' 'sha256-yTvM+JT8e4y/yFSxJS5iJqnFroh6pRn8VHDchU0lrt8=' 'sha256-dYnBNEJiId0m1zE4BIUbBHhKvy2pdNioTLCXW5LGszg=' 'sha256-uGIxsNGrhzJch90uRgQoaD7vTpPUtTtKGgJWVY7fTJU=' 'sha256-ovp6SzR+h9n3U65kU1uJkEMvUuF4CalO1kP/f8g4RQM=' https://apis.google.com; style-src 'unsafe-inline'; img-src data: blob: https://lh3.googleusercontent.com; connect-src https://*.googleapis.com https://trading-journal-d9571.firebaseapp.com; frame-src https://trading-journal-d9571.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-YtXeF+9jHrm9fDrDepObyENTccyQxU5iBHrVP0OPFMU=' 'sha256-yTvM+JT8e4y/yFSxJS5iJqnFroh6pRn8VHDchU0lrt8=' 'sha256-dYnBNEJiId0m1zE4BIUbBHhKvy2pdNioTLCXW5LGszg=' 'sha256-bacqPBUpBaOfQQOmsAdeXI6xg37un0QFkevCAJzzVGY=' 'sha256-XG/l9SDqLJ7CNQg27jHJmZRQrQphuD3lSdmwTEo6hoY=' https://apis.google.com; style-src 'unsafe-inline'; img-src data: blob: https://lh3.googleusercontent.com; connect-src https://*.googleapis.com https://trading-journal-d9571.firebaseapp.com; frame-src https://trading-journal-d9571.firebaseapp.com https://accounts.google.com https://apis.google.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="theme-color" content="#05080f">
 <script>try{var t=localStorage.getItem('p1m-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;document.documentElement.dataset.fx=localStorage.getItem('p1m-fx')==='off'?'off':'on'}catch(e){document.documentElement.dataset.fx='on'}</script>
 <title>หลังบ้าน · Super Elite Club</title>
@@ -981,6 +981,26 @@ aside.side>*{position:relative;z-index:1}
   :root[data-fx=on] .tabbar button.on:before,:root[data-fx=on] .shell>.sbar nav button.on:after{animation:fx-breathe 3.4s ease-in-out infinite}
 }
 
+/* ===== the real system's waiting screen: an engraved dial with a turning gold arc around the house mark ===== */
+.boot{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:20px;text-align:center;background:radial-gradient(560px 400px at 50% 40%,rgba(201,169,110,.14),transparent 70%),var(--bg);animation:fade .45s ease .12s both}
+.boot-m{position:relative;width:164px;height:164px;display:grid;place-items:center;margin-bottom:10px}
+.boot-m:before{content:"";position:absolute;inset:26px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,169,110,.16),transparent)}
+.boot-r{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.boot-r .tk{stroke:rgba(201,169,110,.42);stroke-width:.7;transform-origin:60px 60px}
+.boot-r .tr{fill:none;stroke:rgba(201,169,110,.16);stroke-width:1.2}
+.boot-r .in{fill:none;stroke:rgba(201,169,110,.22);stroke-width:.6;stroke-dasharray:1.4 2.2}
+.boot-r .arc{fill:none;stroke:#c9a96e;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:16 84;transform-origin:60px 60px;filter:none}
+.boot-m img{position:relative;width:94px;display:block}
+.boot-e{font-size:11.5px;font-weight:800;letter-spacing:.34em;margin-left:.34em;color:var(--gold)}
+.boot-l{font-size:14px;color:var(--ink2)}
+.boot-bar{position:relative;width:180px;height:2px;margin-top:8px;border-radius:2px;background:rgba(201,169,110,.15);overflow:hidden}
+.boot-bar i{position:absolute;top:0;bottom:0;left:0;width:42%;background:linear-gradient(90deg,transparent,#efdcb2,transparent);transform:translateX(-100%)}
+@keyframes boot-run{to{transform:translateX(340%)}}
+:root[data-fx=on] .boot-r .arc{animation:fx-spin 1.4s cubic-bezier(.55,.15,.45,.85) infinite}
+:root[data-fx=on] .boot-r .tk{animation:fx-spin 60s linear infinite reverse}
+:root[data-fx=on] .boot-bar i{animation:boot-run 1.7s cubic-bezier(.45,0,.25,1) infinite}
+:root[data-theme=light] .boot-r .tk{stroke:rgba(148,115,58,.45)}:root[data-theme=light] .boot-r .tr{stroke:rgba(148,115,58,.18)}:root[data-theme=light] .boot-r .arc{stroke:#94733a}:root[data-theme=light] .boot-r .in{stroke:rgba(148,115,58,.26)}
+:root[data-theme=light] .boot-bar{background:rgba(148,115,58,.15)}:root[data-theme=light] .boot-bar i{background:linear-gradient(90deg,transparent,#c9a96e,transparent)}
 
 
 .shell{height:100%;display:grid;grid-template-columns:232px minmax(0,1fr);overflow:hidden}
@@ -2873,6 +2893,13 @@ const IC = {
   book2: 'M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z',
 };
 const ic = (n, s = 18, w = 1.8) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${IC[n] || IC.dots}"/></svg>`;
+// the real system's waiting screen (before Firebase answers, and while the data loads): the house mark inside an
+// engraved dial with a turning gold arc, the club's name, what is happening, and a line of light
+function bootView(label) {
+  const tk = Array.from({ length: 60 }, (_, i) => { const a = i * Math.PI / 30, r0 = i % 5 ? 49.5 : 46.5, c = Math.cos(a), s = Math.sin(a); return `<line x1="${(60 + c * r0).toFixed(2)}" y1="${(60 + s * r0).toFixed(2)}" x2="${(60 + c * 52).toFixed(2)}" y2="${(60 + s * 52).toFixed(2)}"/>`; }).join('');
+  return `<div class="boot" role="status" aria-live="polite"><div class="boot-m"><svg class="boot-r" viewBox="0 0 120 120" aria-hidden="true"><g class="tk">${tk}</g><circle class="tr" cx="60" cy="60" r="57"/><circle class="arc" cx="60" cy="60" r="57" pathLength="100"/><circle class="in" cx="60" cy="60" r="43"/></svg><img src="${LOGO}" alt="Super Trader Republic"></div>
+    <div class="boot-e">SUPER ELITE CLUB</div><div class="boot-l">${label}</div><div class="boot-bar" aria-hidden="true"><i></i></div></div>`;
+}
 const GLOGO = '<svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
 
 /* ---------- stock logo and company info (pulled from SET, see build.py) ---------- */
@@ -3632,7 +3659,7 @@ let shownV = null;
 function render() {
   freshCache();   // data changes clear it in save()/load(); the demo clock once a minute
   const app = $('#app'), me = ME();
-  if (LIVEMODE && (!LIVE.info.known || (LIVE.info.user && !LIVE.info.ready && !LIVE.info.error))) { shownV = null; app.innerHTML = `<div class="bo-login"><div class="empty" style="margin:auto">${ic('clock', 26)}กำลังโหลดข้อมูล…</div></div>`; return; }
+  if (LIVEMODE && (!LIVE.info.known || (LIVE.info.user && !LIVE.info.ready && !LIVE.info.error))) { shownV = null; app.innerHTML = bootView(LIVE.info.known ? 'กำลังโหลดข้อมูลลูกค้าและทีมงาน…' : 'กำลังเชื่อมต่ออย่างปลอดภัย…'); return; }
   if (!me) { shownV = null; app.innerHTML = loginView(); return; }
   const role = roleOf();
   if (view === 'orders') view = 'plans'; if (view === 'verify') view = 'record';
